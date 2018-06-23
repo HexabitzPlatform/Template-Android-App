@@ -1,16 +1,13 @@
 package com.hexabitz.hexabitzdemoapp;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class SplashActivity extends AppCompatActivity {
+public class PairedDevicesActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Intent intent = new Intent(this, PairedDevicesActivity.class);
-        startActivity(intent);
-        finish();
+        setContentView(R.layout.activity_paired_devices);
     }
 }
