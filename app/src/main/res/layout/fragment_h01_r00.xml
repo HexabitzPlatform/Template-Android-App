@@ -1,0 +1,88 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.hexabitz.hexabitzdemoapp.H01R00Fragment">
+
+    <SeekBar
+        android:id="@+id/seekBarR"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:max="255"
+        android:progressDrawable="@drawable/red_scrubber_progress"
+        android:splitTrack="false"
+        android:thumb="@drawable/red_scrubber_control" />
+
+    <SeekBar
+        android:id="@+id/seekBarG"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@id/seekBarR"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:max="255"
+        android:progressDrawable="@drawable/green_scrubber_progress"
+        android:splitTrack="false"
+        android:thumb="@drawable/green_scrubber_control" />
+
+    <SeekBar
+        android:id="@+id/seekBarB"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@id/seekBarG"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:max="255"
+        android:progressDrawable="@drawable/blue_scrubber_progress"
+        android:splitTrack="false"
+        android:thumb="@drawable/blue_scrubber_control" />
+
+    <SeekBar
+        android:id="@+id/seekBarOpacity"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@id/seekBarB"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:max="100"
+        android:progressDrawable="@drawable/white_scrubber_progress"
+        android:splitTrack="false"
+        android:thumb="@drawable/white_scrubber_control" />
+
+
+    <com.skydoves.colorpickerpreference.ColorPickerView
+        android:id="@+id/colorPickerView"
+        app:palette="@drawable/palette"
+        app:selector="@drawable/wheel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/btnLedRGB"
+        android:layout_below="@id/seekBarOpacity"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp" />
+
+
+    <Button
+        android:id="@+id/btnLedRGB"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/btnToggleLed"
+        android:layout_marginBottom="10dp"
+        android:onClick="OnLedRGBClick"
+        android:text="Led RGB" />
+
+    <Button
+        android:id="@+id/btnToggleLed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:onClick="OnToggleLedClick"
+        android:text="Led OFF" />
+
+
+</RelativeLayout>
