@@ -1,10 +1,12 @@
-package com.hexabitz.hexabitzdemoapp;
+package com.hexabitz.hexabitzdemoapp.tabs_fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.hexabitz.hexabitzdemoapp.R;
 
 
 public class H01R00Fragment extends Fragment {
