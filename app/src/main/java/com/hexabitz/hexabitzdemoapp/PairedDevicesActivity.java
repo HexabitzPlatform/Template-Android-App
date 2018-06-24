@@ -2,13 +2,17 @@ package com.hexabitz.hexabitzdemoapp;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +35,9 @@ public class PairedDevicesActivity extends AppCompatActivity {
         for(BluetoothDevice bt : pairedDevices)
             s.add(bt.getName());
 
-        listview.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, s));
+        final CustomeArrayAdapter adapter = new CustomeArrayAdapter(this,
+                -1, s);
+        listview.setAdapter(adapter);
 
         listview.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
             @Override
@@ -41,4 +47,44 @@ public class PairedDevicesActivity extends AppCompatActivity {
         });
 
     }
+
+
+
+    private class CustomeArrayAdapter extends ArrayAdapter<String> {
+        private final Context context;
+        ArrayList<String> values = new ArrayList<String>();
+
+        public CustomeArrayAdapter(Context context, int textViewResourceId,
+                                  List<String> objects) {
+            super(context, textViewResourceId, objects);
+            this.context = context;
+            for (int i = 0; i < objects.size(); ++i) {
+                values.add(objects.get(i));
+            }
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            LayoutInflater inflater = (LayoutInflater) context
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View rowView = inflater.inflate(R.layout.listitem, parent, false);
+            TextView textView = (TextView) rowView.findViewById(R.id.title);
+            textView.setText(values.get(position));
+
+            return rowView;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            String item = getItem(position);
+            return position;
+        }
+
+        @Override
+        public boolean hasStableIds() {
+            return true;
+        }
+
+    }
+
 }
