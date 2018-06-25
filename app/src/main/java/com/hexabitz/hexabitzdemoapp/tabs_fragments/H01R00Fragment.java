@@ -18,6 +18,8 @@ public class H01R00Fragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+//        ((ModulesActivity)getActivity()).sendData();
     }
 
     @Override
