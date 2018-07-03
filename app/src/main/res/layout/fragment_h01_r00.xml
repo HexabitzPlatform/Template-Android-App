@@ -3,13 +3,39 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context="com.hexabitz.hexabitzdemoapp.tabs_fragments.H01R00Fragment">
+
+    <TextView
+        android:id="@+id/module_id_lbl"
+        android:layout_margin="12dp"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="16sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:text="Module ID:" />
+
+    <EditText
+        android:id="@+id/module_id_et"
+        android:layout_width="90dp"
+        android:layout_height="40dp"
+        android:text="1"
+        android:hint="Module ID"
+        android:layout_marginTop="7dp"
+        android:textColor="@color/colorPrimaryDark"
+        android:textCursorDrawable="@color/colorPrimaryDark"
+        android:textSize="14sp"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@id/module_id_lbl"/>
+
 
     <SeekBar
         android:id="@+id/seekBarR"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_alignParentTop="true"
+        android:layout_below="@id/module_id_lbl"
         android:layout_centerHorizontal="true"
         android:max="255"
         android:progressDrawable="@drawable/red_scrubber_progress"
@@ -72,7 +98,6 @@
         android:layout_height="wrap_content"
         android:layout_above="@id/btnToggleLed"
         android:layout_marginBottom="10dp"
-        android:onClick="OnLedRGBClick"
         android:text="Led RGB" />
 
     <Button
@@ -81,7 +106,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="10dp"
-        android:onClick="OnToggleLedClick"
+        android:onClick="turn_off_on"
         android:text="Led OFF" />
 
 

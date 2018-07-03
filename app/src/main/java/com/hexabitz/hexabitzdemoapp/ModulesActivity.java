@@ -8,6 +8,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 
 import com.hexabitz.hexabitzdemoapp.tabs_fragments.BtnsAndSwitchesFragment;
 import com.hexabitz.hexabitzdemoapp.tabs_fragments.CLIFragment;
@@ -121,5 +122,7 @@ public class ModulesActivity extends AppCompatActivity {
         }
     }
 
+    public void turn_off_on(View view){
 
+    }
 }
