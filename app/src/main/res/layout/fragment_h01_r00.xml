@@ -32,7 +32,7 @@
 
 
     <SeekBar
-        android:id="@+id/seekBarR"
+        android:id="@+id/seek_bar_R"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_below="@id/module_id_lbl"
@@ -43,10 +43,10 @@
         android:thumb="@drawable/red_scrubber_control" />
 
     <SeekBar
-        android:id="@+id/seekBarG"
+        android:id="@+id/seek_bar_G"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_below="@id/seekBarR"
+        android:layout_below="@id/seek_bar_R"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:max="255"
@@ -55,10 +55,10 @@
         android:thumb="@drawable/green_scrubber_control" />
 
     <SeekBar
-        android:id="@+id/seekBarB"
+        android:id="@+id/seek_bar_b"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_below="@id/seekBarG"
+        android:layout_below="@id/seek_bar_G"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:max="255"
@@ -67,10 +67,10 @@
         android:thumb="@drawable/blue_scrubber_control" />
 
     <SeekBar
-        android:id="@+id/seekBarOpacity"
+        android:id="@+id/seek_bar_opacity"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_below="@id/seekBarB"
+        android:layout_below="@id/seek_bar_b"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:max="100"
@@ -85,28 +85,28 @@
         app:selector="@drawable/wheel"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/btnLedRGB"
-        android:layout_below="@id/seekBarOpacity"
+        android:layout_above="@id/led_btn"
+        android:layout_below="@id/seek_bar_opacity"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp" />
 
 
     <Button
-        android:id="@+id/btnLedRGB"
+        android:id="@+id/led_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/btnToggleLed"
+        android:layout_above="@id/on_off_btn"
+        android:clickable="false"
         android:layout_marginBottom="10dp"
         android:text="Led RGB" />
 
     <Button
-        android:id="@+id/btnToggleLed"
+        android:id="@+id/on_off_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="10dp"
-        android:onClick="turn_off_on"
         android:text="Led OFF" />
 
 

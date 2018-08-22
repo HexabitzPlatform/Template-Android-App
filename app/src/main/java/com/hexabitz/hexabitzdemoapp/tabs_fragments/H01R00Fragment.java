@@ -10,10 +10,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SeekBar;
 
+import com.hexabitz.hexabitzdemoapp.ModulesActivity;
 import com.hexabitz.hexabitzdemoapp.R;
 import com.skydoves.colorpickerpreference.ColorEnvelope;
 import com.skydoves.colorpickerpreference.ColorListener;
 import com.skydoves.colorpickerpreference.ColorPickerView;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class H01R00Fragment extends Fragment implements SeekBar.OnSeekBarChangeListener {
@@ -21,44 +25,45 @@ public class H01R00Fragment extends Fragment implements SeekBar.OnSeekBarChangeL
     ColorPickerView colorPickerView;
     protected boolean isConnected = false;
     EditText module_id;
-    boolean is_locked = true;
-    Button rbg_btn;
+    boolean is_locked = false,isLedOn = false;
+    Button rbg_btn,off_on_btn;
     SeekBar r_seekBar,g_seekBar,b_seekBar,opacity_seekBar;
+    Timer t = new Timer();
 
     public H01R00Fragment() {
-        // Required empty public constructor
     }
+
 
     public void onProgressChanged(SeekBar seekBar, int progress,
                                   boolean fromUser) {
 
 
-//        colorPickerView.set
-        ((Button) getActivity().findViewById(R.id.btnLedRGB)).setBackgroundColor(
+        rbg_btn.setBackgroundColor(
                 getIntFromColor(
-                        ((SeekBar) getActivity().findViewById(R.id.seekBarOpacity)).getProgress(),
-                        ((SeekBar) getActivity().findViewById(R.id.seekBarR)).getProgress(),
-                        ((SeekBar) getActivity().findViewById(R.id.seekBarG)).getProgress(),
-                        ((SeekBar) getActivity().findViewById(R.id.seekBarB)).getProgress()
+                        opacity_seekBar.getProgress(),
+                        r_seekBar.getProgress(),
+                        g_seekBar.getProgress(),
+                        b_seekBar.getProgress()
                 )
         );
-        if (isConnected && !is_locked) {
+        if (!is_locked) {
             byte[] data = {
                     0x1,
-                    (byte)((SeekBar) getActivity().findViewById(R.id.seekBarR)).getProgress(),
-                    (byte)((SeekBar) getActivity().findViewById(R.id.seekBarG)).getProgress(),
-                    (byte)((SeekBar) getActivity().findViewById(R.id.seekBarB)).getProgress(),
-                    (byte)((SeekBar) getActivity().findViewById(R.id.seekBarOpacity)).getProgress(),
+                    (byte)r_seekBar.getProgress(),
+                    (byte)g_seekBar.getProgress(),
+                    (byte)b_seekBar.getProgress(),
+                    (byte)opacity_seekBar.getProgress(),
             };
-//            SendCmd(0x02, 0, 0x67, data);
-//            is_locked = true;
-//            t.schedule(new TimerTask() {
+
+            ((ModulesActivity)getActivity()).sendData(0x02, 0, 0x67, data,module_id.getText().toString());
+            is_locked = true;
+            t.schedule(new TimerTask() {
 //
-//                @Override
-//                public void run() {
-//                    is_locked=false;
-//                }
-//            },100);
+                @Override
+                public void run() {
+                    is_locked=false;
+                }
+            },100);
         }
     }
 
@@ -75,13 +80,14 @@ public class H01R00Fragment extends Fragment implements SeekBar.OnSeekBarChangeL
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        //        ((ModulesActivity)getActivity()).sendData();
-        rbg_btn = (Button) getActivity().findViewById(R.id.btnLedRGB);
-        r_seekBar = (SeekBar) getActivity().findViewById(R.id.seekBarR);
-        g_seekBar = (SeekBar) getActivity().findViewById(R.id.seekBarG);
-        b_seekBar = (SeekBar) getActivity().findViewById(R.id.seekBarB);
-        opacity_seekBar = (SeekBar) getActivity().findViewById(R.id.seekBarOpacity);
+        rbg_btn = (Button) getActivity().findViewById(R.id.led_btn);
+        off_on_btn = (Button) getActivity().findViewById(R.id.on_off_btn);
+        r_seekBar = (SeekBar) getActivity().findViewById(R.id.seek_bar_R);
+        g_seekBar = (SeekBar) getActivity().findViewById(R.id.seek_bar_G);
+        b_seekBar = (SeekBar) getActivity().findViewById(R.id.seek_bar_G);
+        opacity_seekBar = (SeekBar) getActivity().findViewById(R.id.seek_bar_opacity);
 
+        module_id = (EditText) getActivity().findViewById(R.id.module_id_et);
         r_seekBar.setOnSeekBarChangeListener(this);
         g_seekBar.setOnSeekBarChangeListener(this);
         b_seekBar.setOnSeekBarChangeListener(this);
@@ -113,6 +119,30 @@ public class H01R00Fragment extends Fragment implements SeekBar.OnSeekBarChangeL
                 b_seekBar.setProgress(rgb[2]);
             }
         });
+
+        off_on_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String moduleId = module_id.getText().toString();
+                if (isLedOn == false)
+                {
+                    byte opacity = (byte) (opacity_seekBar.getProgress());
+                    byte[] data = {opacity};
+                    ((ModulesActivity)getActivity()).sendData(0x02,0, 0x64, data, moduleId);
+                    isLedOn = true;
+                    off_on_btn.setText("Led ON");
+                    rbg_btn.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+
+                }
+                else
+                {
+                    ((ModulesActivity)getActivity()).sendData(0x02,0, 0x65, null, moduleId);
+                    isLedOn = false;
+                    off_on_btn.setText("Led OFF");
+                    rbg_btn.setBackgroundColor(getResources().getColor(R.color.off));
+                }
+            }
+        });
     }
 
 
@@ -138,4 +168,5 @@ public class H01R00Fragment extends Fragment implements SeekBar.OnSeekBarChangeL
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_h01_r00, container, false);
     }
+
 }

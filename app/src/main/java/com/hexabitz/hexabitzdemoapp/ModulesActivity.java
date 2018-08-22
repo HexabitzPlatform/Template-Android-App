@@ -8,7 +8,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
 
 import com.hexabitz.hexabitzdemoapp.tabs_fragments.BtnsAndSwitchesFragment;
 import com.hexabitz.hexabitzdemoapp.tabs_fragments.CLIFragment;
@@ -28,6 +27,7 @@ public class ModulesActivity extends AppCompatActivity {
     private InputStream mmInStream;
     private OutputStream mmOutStream;
     BLEHandler bleHandler = new BLEHandler();
+    boolean isLedOn = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +47,13 @@ public class ModulesActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
 
+        String deviceAddress = getIntent().getStringExtra("address");
+        connectToDevice(deviceAddress);
+
 
     }
+
+
 
     private void connectToDevice(String address) {
         /* 00001101-0000-1000-8000-00805f9b34fb Serial*/
@@ -122,7 +127,4 @@ public class ModulesActivity extends AppCompatActivity {
         }
     }
 
-    public void turn_off_on(View view){
-
-    }
 }

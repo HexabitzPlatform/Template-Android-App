@@ -4,6 +4,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -20,6 +21,9 @@ import java.util.Set;
 
 public class PairedDevicesActivity extends AppCompatActivity {
 
+    ArrayList<String> devicesNameList;
+    ArrayList<String> devicesAddressList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,18 +35,23 @@ public class PairedDevicesActivity extends AppCompatActivity {
         BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
 
-        List<String> s = new ArrayList<String>();
-        for(BluetoothDevice bt : pairedDevices)
-            s.add(bt.getName());
+        devicesNameList = new ArrayList<String>();
+        devicesAddressList = new ArrayList<String>();
+        for(BluetoothDevice bt : pairedDevices) {
+            devicesNameList.add(bt.getName());
+            devicesAddressList.add(bt.getAddress());
+        }
 
         final CustomeArrayAdapter adapter = new CustomeArrayAdapter(this,
-                -1, s);
+                -1, devicesNameList);
         listview.setAdapter(adapter);
 
         listview.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,int position, long id) {
-                startActivity(new Intent(PairedDevicesActivity.this,ModulesActivity.class));
+                Intent data = new Intent(PairedDevicesActivity.this,ModulesActivity.class);
+                data.putExtra("address",Uri.parse(devicesAddressList.get(position)).toString());
+                startActivity(data);
             }
         });
 
