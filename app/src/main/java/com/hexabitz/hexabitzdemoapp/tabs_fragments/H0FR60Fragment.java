@@ -47,7 +47,7 @@ public class H0FR60Fragment extends Fragment {
 
         toggleBtn = (Button) getActivity().findViewById(R.id.toggle_btn);
         relayBtn = (Button) getActivity().findViewById(R.id.relay_on_btn);
-        module_id = (EditText) getActivity().findViewById(R.id.module_id_et);
+        module_id = (EditText) getActivity().findViewById(R.id.module_id_r60_et);
         time_out= (EditText) getActivity().findViewById(R.id.txtTimeout);
 
         toggleBtn.setOnClickListener(new View.OnClickListener() {

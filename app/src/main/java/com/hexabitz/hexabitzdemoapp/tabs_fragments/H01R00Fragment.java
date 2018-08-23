@@ -87,7 +87,7 @@ public class H01R00Fragment extends Fragment implements SeekBar.OnSeekBarChangeL
         b_seekBar = (SeekBar) getActivity().findViewById(R.id.seek_bar_G);
         opacity_seekBar = (SeekBar) getActivity().findViewById(R.id.seek_bar_opacity);
 
-        module_id = (EditText) getActivity().findViewById(R.id.module_id_et);
+        module_id = (EditText) getActivity().findViewById(R.id.module_id_r00_et);
         r_seekBar.setOnSeekBarChangeListener(this);
         g_seekBar.setOnSeekBarChangeListener(this);
         b_seekBar.setOnSeekBarChangeListener(this);
